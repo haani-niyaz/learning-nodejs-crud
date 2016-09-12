@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
 // set views directory
-app.set('views', __dirname + '/public/views');
+app.set('views', __dirname + '/../public/views');
 
 /**
  * By default Express will not serve static files. It needs to be told explicitly 
@@ -26,7 +26,7 @@ app.set('views', __dirname + '/public/views');
  * 
  */
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/../public'));
 
 
 module.exports = app;
