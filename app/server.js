@@ -10,12 +10,10 @@ app.port = process.env.PORT || 8000;
 // Bring in all routes
 var router = require('./routes');
 
-// middleware for all routes
-app.use('/',router);
-
 // template engine
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
+
 
 // set views directory
 app.set('views', __dirname + '/../public/views');
@@ -27,6 +25,12 @@ app.set('views', __dirname + '/../public/views');
  */
 
 app.use(express.static(__dirname + '/../public'));
+
+
+
+
+// middleware for all routes
+app.use('/',router);
 
 
 module.exports = app;
