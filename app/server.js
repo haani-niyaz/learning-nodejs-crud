@@ -9,9 +9,11 @@ var mongoose = require('mongoose');
 
 app.port = process.env.PORT || 8000;
 
-// Bring in all routes
+// load all routes
 var router = require('./routes');
 
+// load database connection
+require('./database.js');
 
 
 // template engine
@@ -29,8 +31,6 @@ app.set('views', __dirname + '/../public/views');
  */
 
 app.use(express.static(__dirname + '/../public'));
-
-
 
 
 // middleware for all routes
