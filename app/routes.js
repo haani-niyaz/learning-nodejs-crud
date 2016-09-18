@@ -14,9 +14,10 @@ var router = require('express').Router();
  */
 router.get('/', mainController.home);
 router.get('/events', eventsController.show);
+router.get('/events/create', eventsController.create);
 router.get('/events/seed', eventsController.seed);
 router.get('/events/:slug', eventsController.view);
-
+router.post('/events/create',eventsController.store);
 
 // export router
 module.exports = router;
