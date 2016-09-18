@@ -1,5 +1,8 @@
 // bussiness logic for events
 
+
+const Event = require('../models/event');
+
 exports.show = function(req,res){
 	// dummy data
 
