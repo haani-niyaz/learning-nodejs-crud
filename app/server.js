@@ -6,6 +6,7 @@ var express = require('express');
 var app = express();
 var expressLayouts = require('express-ejs-layouts');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 app.port = process.env.PORT || 8000;
 
@@ -15,6 +16,9 @@ var router = require('./routes');
 // load database connection
 require('./database');
 
+
+// use body-parser for forms
+app.use(bodyParser.urlencoded({extended: true}));
 
 // template engine
 app.set('view engine', 'ejs');
