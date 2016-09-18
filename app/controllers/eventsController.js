@@ -22,8 +22,9 @@ exports.view = function(req,res){
 	// Must be a single event 
 	Event.findOne({'slug':req.params.slug},function(err, event){
 		if (err){
-			res.status(404);
-			return res.send('Event not found');
+			// res.status(404);
+			// return res.send('Event not found');
+			throw new Error();
 			
 		} else{		
 			res.render('pages/event',{event:event});
@@ -54,3 +55,28 @@ exports.seed = function(req,res){
 	res.send('Databse seeded!');
 
 }
+
+
+exports.create = function(req,res){
+	res.render('pages/create');
+}
+
+
+
+exports.store = function(req,res){
+
+	const event = new Event({
+		name: req.body.name,
+		description: req.body.description
+	});
+
+	event.save(function(err){
+		if (err){
+			throw err;
+		}
+
+		res.redirect('/events/'+ event.slug);
+	});
+}
+
+
