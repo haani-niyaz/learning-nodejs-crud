@@ -1,14 +1,18 @@
-// node application setup
+// bootstrap application
 
+require('dotenv').config();
 
 var express = require('express');
 var app = express();
-expressLayouts = require('express-ejs-layouts');
+var expressLayouts = require('express-ejs-layouts');
+var mongoose = require('mongoose');
 
 app.port = process.env.PORT || 8000;
 
 // Bring in all routes
 var router = require('./routes');
+
+
 
 // template engine
 app.set('view engine', 'ejs');
