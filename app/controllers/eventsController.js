@@ -4,29 +4,53 @@
 const Event = require('../models/event');
 
 exports.show = function(req,res){
-	// dummy data
+	// get all events
+	Event.find({},function(err, events){
+		if (err){
+			res.status(404);
+			return res.send('Events not found');
+		}
+			// return view with data
+			res.render('pages/events', {events:events});
+	});
 
-	var events = [
-		{ name: 'Basketball', slug: 'basketball', description: 'Throwing into a basket.' },
-  		{ name: 'Swimming', slug: 'swimming', description: 'Michael Phelps is the fast fish.' },
-  		{ name: 'Weightlifting', slug: 'weightlifting', description: 'Lifting heavy things up' }
-	];
-
-	// return view with data
-	res.render('pages/events', {events:events});
 }
 
 
 exports.view = function(req,res){
-	// Iterate through objects
-	//console.log(req.params);
+
+	// Must be a single event 
+	Event.findOne({'slug':req.params.slug},function(err, event){
+		if (err){
+			res.status(404);
+			return res.send('Event not found');
+			
+		} else{		
+			res.render('pages/event',{event:event});
+		}
+		
+	});
+
+}
 
 
-	const event = { name: 'Basketball', slug: 'basketball', description: 'Throwing into a basket.' }
 
-	res.render('pages/event',{event:event});
+exports.seed = function(req,res){
+	const events = [
+		{ name: 'Basketball', description: 'Throwing into a basket.' },
+  		{ name: 'Swimming', description: 'Michael Phelps is the fast fish.' },
+  		{ name: 'Weightlifting', description: 'Lifting heavy things up' },
+  		{ name: 'Ping Pong', description: 'Super fast paddles' }
+	];
 
-	// Find object matching slug
+	// remove all and seed on successfull callback
+	Event.remove({},function(){
 
-	// Return object to view page
+		events.forEach(function(event){
+			new Event(event).save();
+		});
+	});
+	
+	res.send('Databse seeded!');
+
 }

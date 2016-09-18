@@ -13,7 +13,7 @@ app.port = process.env.PORT || 8000;
 var router = require('./routes');
 
 // load database connection
-require('./database.js');
+require('./database');
 
 
 // template engine
