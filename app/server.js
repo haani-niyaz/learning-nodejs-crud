@@ -7,7 +7,7 @@ var app 			= express();
 var expressLayouts 	= require('express-ejs-layouts');
 var mongoose     	= require('mongoose');
 var bodyParser 	 	= require('body-parser');
-
+var expressValidator = require('express-validator');
 
 /**
  * express-session: gives us the ability to create sessions in Node so that we can store data.
@@ -43,6 +43,9 @@ require('./database');
 
 // use body-parser for forms
 app.use(bodyParser.urlencoded({extended: true}));
+
+// use validation helper
+app.use(expressValidator());
 
 // template engine
 app.set('view engine', 'ejs');

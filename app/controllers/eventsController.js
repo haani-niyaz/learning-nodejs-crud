@@ -60,12 +60,36 @@ exports.seed = function(req,res){
 
 
 exports.create = function(req,res){
-	res.render('pages/create');
+
+	res.render('pages/create',{
+		errors : req.flash('errors'),
+	});
 }
 
 
 
 exports.store = function(req,res){
+
+	// validate before storing
+	req.checkBody('name','Name is required').notEmpty();
+	req.checkBody('description','Description is required').notEmpty();
+
+	errors = req.validationErrors();
+
+	if (errors){
+
+		error_messages = errors.map(function(err){
+			console.log(err.msg);
+			return err.msg;
+		});	
+
+		console.log(error_messages);
+
+		req.flash('errors', error_messages);
+
+		return res.redirect('/events/create');
+	}
+
 
 	const event = new Event({
 		name: req.body.name,
