@@ -21,13 +21,15 @@ exports.view = function(req,res){
 
 	// Must be a single event 
 	Event.findOne({'slug':req.params.slug},function(err, event){
-		if (err){
-			// res.status(404);
-			// return res.send('Event not found');
-			throw new Error();
+		if (err || !event){
+			res.status(404);
+			return res.send('Event not found');
 			
 		} else{		
-			res.render('pages/event',{event:event});
+			res.render('pages/event',{
+				event: event,
+				success: req.flash('success')
+			});
 		}
 		
 	});
@@ -74,6 +76,9 @@ exports.store = function(req,res){
 		if (err){
 			throw err;
 		}
+
+		// add to session data
+		req.flash('success', 'Successfully created event!');
 
 		res.redirect('/events/'+ event.slug);
 	});
